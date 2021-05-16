@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    .father {
+      border: 1px solid #ccc;
+      /* overflow: hidden; */
+      /* height: 200px; */
+      position: relative;
+    }
+
+    .child {
+      width: 200px;
+      height: 200px;
+      background-color: palegoldenrod;
+      float: left;
+      position: absolute;
+      top: 10px;
+      left: 20px;
+
+    }
+
+    /*     .clearfix::after {
+      content: '';
+      display: block;
+      clear: both;
+      overflow: hidden;
+      height: 0;
+    } */
+  </style>
+</head>
+
+<body>
+  <div class="father clearfix">
+    <div class="child"></div>
+    <!--     <div class="clearfix"></div> -->
+    <!-- 1.父元素设高  子元素高度不可控
+    2.给父元素的子元素最后面添加div
+  3.使用伪元素(父元素上添加伪元素同2) overflow: hidden 和display：none   前者隐藏占位，后者不占位
+  4.给父元素添加overflow:hidden
+
+  bfc:
+
+
+
+-->
+  </div>
+</body>
+
+</html>

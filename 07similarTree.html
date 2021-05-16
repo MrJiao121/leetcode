@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    /**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root1
+ * @param {TreeNode} root2
+ * @return {boolean}
+ */
+var leafSimilar = function(root1, root2) {
+  //深度优先遍历
+  let seq1 = [],seq2= [];
+  if(root1) {
+    dfs(root1,seq1);
+  }
+  if(root2) {
+    dfs(root2,seq2);
+  }
+
+  let dfs = (root,seq) => {
+    if(!root.left && !root.right) {
+      seq.push(root.val);
+    }else if(root.left) {
+      dfs(root.left,seq)
+    }else if(root.right) {
+      dfs(root.right,seq)
+    }
+  }
+    return seq1.join('') == seq2.join('')
+};
+/**
+ * @param {TreeNode} root1
+ * @param {TreeNode} root2
+ * @return {boolean}
+ */
+ var leafSimilar = function(root1, root2) {
+  let leaf1 = [], index  = 0, out = false;
+
+  /**
+   * leaf 存在时进行存储，不存在时进行校验，
+   * out 为检测失败时的退出条件
+   * @param tree
+   * @param leaf
+   */
+  function dfs(tree, leaf) {
+    if (!tree || out) return
+    if (!tree.left && !tree.right) {
+      if (leaf) {
+        leaf.push(tree.val)
+      } else {
+        if (index < leaf1.length && leaf1[index] === tree.val) {
+          index ++
+        } else {
+          index = -1
+          out = true
+        }
+      }
+      return
+    }
+    dfs(tree.left, leaf)
+    dfs(tree.right, leaf)
+  }
+  dfs(root1, leaf1)
+  dfs(root2, null)
+  return index === leaf1.length
+};
+
+/* 
+给你一个字符串 s，找到 s 中最长的回文子串。
+
+ 
+
+示例 1：
+
+输入：s = "babad"
+输出："bab"
+解释："aba" 同样是符合题意的答案。
+示例 2：
+
+输入：s = "cbbd"
+输出："bb"
+示例 3：
+
+输入：s = "a"
+输出："a"
+示例 4：
+
+输入：s = "ac"
+输出："a"
+ 
+
+提示：
+
+1 <= s.length <= 1000
+s 仅由数字和英文字母（大写和/或小写）组成
+
+abcabc
+
+两个指针 
+ba
+ab 
+
+
+
+*/
+
+
+/*     s = "babad"
+输出："bab"
+解释："aba" 同样是符合题意的答案。
+示例 2：
+
+输入：s = "cbbd"
+输出："bb"
+示例 3：
+
+输入：s = "a"
+输出："a"
+.33333333333333333333333 */
+var longestPalindrome = function(s) {
+    let sArr = s.split("");
+
+    let i=0, j = sArr.length -1;
+    let str1="",str2="", indexArr = [],res=[], common = false;
+    while(i<=j) {
+        let start = sArr[i];
+        let index = sArr.lastIndexOf( start ) ;
+        if(i==j) {
+            str1+=sArr[i];
+            i++;
+          common = true;
+        }else if(  index!=-1 && i < index && indexArr.indexOf(i) == -1) {
+            //当前元素只有一个
+            str1+=sArr[i];
+            indexArr.push(i)
+            // str2 = sArr[j] +str2;
+            i++;
+        }else {
+            //当前元素相等，i，j均向前走
+           str1 =""
+            i++;
+            j--;
+        }
+     res.push({ str1, common}) 
+    }
+/*     let result ='';
+    res.forEach(item => {
+      if(!item.common) {
+        item.str1 += item.str1.split("").reverse().join("")
+      }
+      result = item.str1.length > result.length ? item.str1 : result;  
+    }) */
+      console.log(result);
+      return result;
+};
+
+// longestPalindrome("cbbd")
+longestPalindrome("babad")
+
+// longestPalindrome("ac")
+
+// longestPalindrome("a")
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>  
+
+
+
+</body>
+</html>
