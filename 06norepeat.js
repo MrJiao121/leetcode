@@ -33,8 +33,8 @@
 s 由英文字母、数字、符号和空格组成
 */
 
-var lengthOfLongestSubstring = function(s) {
-  let mapping = {},len = 0,strArr = [],tmp =1;
+var lengthOfLongestSubstring1 = function(s) {
+  let mapping = {}, len = 0, strArr = [], tmp =1;
   if(!s) return 0;
   s.split("").forEach((e, idx) => {
     let code = e.charCodeAt();
@@ -59,16 +59,56 @@ var lengthOfLongestSubstring = function(s) {
 
 
 };
+var lengthOfLongestSubstring2 = function (s) {
+//采用滑动窗口
+  let queue = [], mapping = {},len = 0;
+  for(let i =0; i<s.length;i++) {
+    if((!mapping[s[i]] && mapping[s[i]]!= 0) || (queue.indexOf(s[i]) == -1)) {
+      queue.push(s[i]);
+      mapping[s[i]] = queue.length - 1;
+      len = queue.length > len ? queue.length : len;
+    }else {
+      //存在
+      queue.splice(0, mapping[s[i]]+1);
+      // console.log(s[i],mapping[s[i]], queue);
+      
+      queue.forEach( (item, index) => mapping[item] = index);
+      len = queue.length > len ? queue.length : len;
 
+      queue.push(s[i]);
+      mapping[s[i]] = queue.length - 1;
 
+    }
+    
+  }
+  
 
-// console.log(lengthOfLongestSubstring("abcabcbb"));
-// console.log(lengthOfLongestSubstring("pwwkew"));
+  return len;
+
+}
+
+var lengthOfLongestSubstring = function (s) {
+  //采用滑动窗口
+  let str = '', len = 0, mapping ={} ;
+  for(let i=0;i<s.length; i++) {
+    if(str.indexOf(s[i]) == -1) {
+      str +=s[i];
+    }else {
+      len = str.length > len ? str.length : len;
+      
+      console.log(str,s[i], str.slice(str.indexOf(s[i]+1)));
+      str = str.slice(str.indexOf(s[i])+1) + s[i];
+    }
+  }
+  return  str.length > len ? str.length : len;
+  
+}
+console.log(lengthOfLongestSubstring("bpfbhmipx"));// 3
+console.log(lengthOfLongestSubstring("pwwkew"));//
 // console.log(lengthOfLongestSubstring("bbbbb"));
-// console.log(lengthOfLongestSubstring(""));
+// console.log(lengthOfLongestSubstring("")); 
 // console.log(lengthOfLongestSubstring("dvdf"));
-
-console.log(lengthOfLongestSubstring("aabaab!bb"));
+// console.log(lengthOfLongestSubstring("aabaab!bb"));
 /* 
 a 1 a
 a 1  
